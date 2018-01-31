@@ -58,11 +58,11 @@ namespace TestAppSander
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "778960310838-mi799trd563i6gnqqohrcrvqnjibtiuj.apps.googleusercontent.com",
+                ClientSecret = "9YN-PIsDvBa0yWrPtzmMp-Pi"
+            });
         }
     }
 }
