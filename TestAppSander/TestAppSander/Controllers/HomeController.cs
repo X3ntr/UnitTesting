@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace TestAppSander.Controllers
 {
+    [RequireHttps] //forces use of SSL
     public class HomeController : Controller
     {
         public ActionResult Index()
