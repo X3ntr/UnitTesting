@@ -58,11 +58,11 @@ namespace TestAppChris
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "510431373662-ufod0mae6cbhtm80ob3p57dbvo6ubvkj.apps.googleusercontent.com",
+                ClientSecret = "quXDX0W2Nxy57mSoh-HPE_TF"
+            });
         }
     }
 }
