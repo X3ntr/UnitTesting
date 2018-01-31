@@ -3,7 +3,7 @@ ASP.NET Identity and Web Security
 
 Sander Forrer
 Christophe Dumont
-ISB204A
+ISB204A-02
 
 
 Breid SupportCenter uit door gebruik te maken van ASP.NET Identity.
