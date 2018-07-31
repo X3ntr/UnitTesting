@@ -4,12 +4,12 @@
 Unit testing deelt een applicatie op in kleine blokjes code. Dit kan varieren van een methode tot een complete klasse. Voor elk blokje code wordt appart een test
 geschreven die bepaald of het blokje code doet wat het moet doen.
 Deze tests staan volledig los van de rest van de applicatie.  
-Een goede Unit Test is **A TRIP**
-* Automatic -> het aanroepen en het resultaat verwerken gebeurt automatisch
-* Thorough -> de test houdt rekening met alle mogelijke uitkomsten
-* Repeatable -> de test is herhaalbaar en levert altijd dezelfde resultaten. De test gebruikt geen oncontroleerbare parameters
-* Independent -> elke test is geschreven om 1 specifieke functie of stukje code te testen. Elke test is zelfstandig en maakt geen gebruik van externe code of andere testen.
-* Professional -> net zoals productie code moet een test goed geschreven en leesbaar zijn met duidelijke namen voor methodes en variabelen.
+Een goede Unit Test is **ATRIP**
+* **A**utomatic -> het aanroepen en het resultaat verwerken gebeurt automatisch
+* **T**horough -> de test houdt rekening met alle mogelijke uitkomsten
+* **R**epeatable -> de test is herhaalbaar en levert altijd dezelfde resultaten. De test gebruikt geen oncontroleerbare parameters
+* **I**ndependent -> elke test is geschreven om 1 specifieke functie of stukje code te testen. Elke test is zelfstandig en maakt geen gebruik van externe code of andere testen.
+* **P**rofessional -> net zoals productie code moet een test goed geschreven en leesbaar zijn met duidelijke namen voor methodes en variabelen.
   
 Een goede unit test is ook snel om uit te voeren. Elke test die langer duurt dan een halve seconde is een slechte test.
   
@@ -49,15 +49,29 @@ We passen volgende conventies toe:
 * Naam van te testen methodes -> `[Methode naam]_[Scenario]_[ExpectedBehaviour]`
 
 Voorbeeld:  
-De klasse die we willen testen is `Reservation`, de methode die we willen testen is `CanBeCancelledBy()`, in het scenario dat we willen testen
-is de gebruiker een administrator, het verwachte gedrag of *Expected behaviour* van deze methode in dit scenario is dat we `True` terug krijgen.
+De klasse die we willen testen is `Reservation`, de methode die we willen testen is `CanBeCancelledBy(User user)`, in het scenario dat we willen testen
+is de gebruiker een administrator, het verwachte gedrag of *Expected behaviour* van deze methode in dit scenario is dat we `true` terug krijgen.
+  
+We testen elke methode volgens de **Triple A** conventie, namelijk **A**rrange, **A**ct, **A**ssert.
+1) eerst initialiseren we de objecten die we willen testen -> **Arrange**
+2) dan testen we deze objecten en bewaren het resultaat -> **Act**
+3) uiteindelijk verifiëren we of het resultaat correct is -> **Assert**
   
 ```cs
 [TestClass]
-public class ReservationTests {
+public class ReservationTests
+{
   [TestMethod]
   public void CanBeCancelledBy_UserIsAdmin_ReturnsTrue()
   {
+    //Arrange
+	var reservation = new Reservation();
+	
+	//Act
+	var result = reservation.CanBeCancelledBy(new User { IsAdmin = true });
+	
+	//Assert
+	Assert.IsTrue(result);
   }
 }
 ```
