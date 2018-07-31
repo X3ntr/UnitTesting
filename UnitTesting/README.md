@@ -75,6 +75,8 @@ public class ReservationTests
   }
 }
 ```
+  
+Om de test uit te voeren, selecteren we **All Tests** in het **Test** menu.
 
 ## Wat is dependency injection en waarom is dit nuttig?
 Dependency Injection wil zeggen dat we een object zijn *dependencies* **geven** in plaats van dat dit object zelf zijn *dependencies* **maakt**.
