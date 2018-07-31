@@ -43,6 +43,24 @@ Er zijn een aantal verschillende populaire frameworks:
 
 Om onze tests te schrijven voegen we een nieuw project toe aan onze solution van het type ***Unit Test project*** en geven het een naam volgens de volgende conventie
 `[project name].UnitTests`
+  
+We passen volgende conventies toe:
+* Naam van te testen klasse -> `[Klasse naam]Tests`
+* Naam van te testen methodes -> `[Methode naam]_[Scenario]_[ExpectedBehaviour]`
+
+Voorbeeld:  
+De klasse die we willen testen is `Reservation`, de methode die we willen testen is `CanBeCancelledBy()`, in het scenario dat we willen testen
+is de gebruiker een administrator, het verwachte gedrag of *Expected behaviour* van deze methode in dit scenario is dat we `True` terug krijgen.
+  
+```cs
+[TestClass]
+public class ReservationTests {
+  [TestMethod]
+  public void CanBeCancelledBy_UserIsAdmin_ReturnsTrue()
+  {
+  }
+}
+```
 
 ## Wat is dependency injection en waarom is dit nuttig?
 Dependency Injection wil zeggen dat we een object zijn *dependencies* **geven** in plaats van dat dit object zelf zijn *dependencies* **maakt**.
