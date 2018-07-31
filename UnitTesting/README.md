@@ -141,8 +141,7 @@ Test code
 ```cs
 [Test] public void TestPrivateInstanceMethod()
 {
-    string strExpected = "MyName: Hello, 5/24/2004 
-     12:00:00 AM, 2.1";
+    string strExpected = "MyName: Hello, 5/24/2004 12:00:00 AM, 2.1";
      
     ClassLibrary1.MyObject objInstance 
      = new MyObject("MyName");
