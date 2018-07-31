@@ -41,6 +41,9 @@ Er zijn een aantal verschillende populaire frameworks:
 * XUnit
 * ReSharper (test runner)
 
+Om onze tests te schrijven voegen we een nieuw project toe aan onze solution van het type ***Unit Test project*** en geven het een naam volgens de volgende conventie
+`[project name].UnitTests`
+
 ## Wat is dependency injection en waarom is dit nuttig?
 Dependency Injection wil zeggen dat we een object zijn *dependencies* **geven** in plaats van dat dit object zelf zijn *dependencies* **maakt**.
 Dit kan gebeuren met behulp van een constructor (constructor injection), een setter (setter injection) of een gespecialiseerd framework zoals **Spring**.
