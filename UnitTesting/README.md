@@ -42,5 +42,24 @@ Er zijn een aantal verschillende populaire frameworks:
 * ReSharper (test runner)
 
 ## Wat is dependency injection en waarom is dit nuttig?
+Dependency Injection wil zeggen dat we een object zijn *dependencies* **geven** in plaats van dat dit object zelf zijn *dependencies* **maakt**.
+Dit kan gebeuren met behulp van een constructor (constructor injection), een setter (setter injection) of een gespecialiseerd framework zoals **Spring**.
+  
+Voorbeeld:  
+In dit voorbeeld gaan we uit van een **object** met de volgende constructor
+
+``` public MijnKlasse() {
+mijnObject = Factory.getObject();
+} ```
+
+In dit geval heeft `mijnKlasse` een **dependency** namelijk `mijnObject`. In het geval dat we een Unit Test willen schrijven voor mijnKlasse moeten
+we een *Mock Object* maken voor `mijnObject` en de `Factory.getObject()` aanroep opvangen. In dit geval is het gemakkelijker om Dependency Injection toe
+te passen met behulp van de constructor.
+  
+``` public mijnKlasse(MijnObject mijnObject) {
+this.mijnObject = mijnObject();
+} ```
+
+Nu kunnen we een *Mock Object* maken voor `mijnObject` en dit via de constructor doorgeven.
 
 ## Wat is reflection?
