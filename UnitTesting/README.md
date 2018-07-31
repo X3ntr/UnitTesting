@@ -29,6 +29,9 @@ Dit brengt een aantal voordelen met zich mee:
 * de code die wordt geschreven wordt altijd getest
 * door eerst tests te schrijven moet er worden nagedacht over hoe de code wordt aangeroepen, dit verbetert het ontwerp van de applicatie
 
+## Hoe schrijven we Unit Tests in MS Visual Studio
+
+
 ## Wat is dependency injection en waarom is dit nuttig?
 
 ## Wat is reflection?
