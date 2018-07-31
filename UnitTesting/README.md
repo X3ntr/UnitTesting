@@ -67,3 +67,15 @@ this.mijnObject = mijnObject();
 Nu kunnen we een *Mock Object* maken voor `mijnObject` en dit via de constructor doorgeven.
 
 ## Wat is reflection?
+Reflectie is de mogelijkheid van een applicatie om *at runtime* zijn eigen gedrag en structuur te bekijken en eventueel aan te passen.
+In C# betekent dit dat we dynamisch informatie over de geladen assemblies en de gedefiniëerde types in deze assemblies kunnen opvragen in de vorm van een "Type" object.
+Deze "Type" objecten kunnen we gebruiken om dynamisch instanties te maken en methods aan te roepen of *invoken*. Om reflectie te gebruiken in C# moeten we
+de namespace `System.Reflection` toevoegen aan de applicatie.
+  
+In het verhaal van Unit Testing kunnen we **reflection** gebruiken om `private` methodes te testen.
+Dit brengt een aantal voor- en nadelen met zich mee:
+* private methoden kunnen complexe logica bevatten die we beter kunnen testen met directe toegang in plaats van via een publieke methode
+* het princiepe van unit testing is om de smalste blokjes functionaliteit te testen
+  
+* private methoden zouden al getest moeten zijn door het aanroepen via publieke methoden tijdens het testen
+* naargelang het *refactoring* van de code moet de test code ook *gerefactored* worden.
