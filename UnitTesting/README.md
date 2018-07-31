@@ -22,6 +22,8 @@ Unit testing heeft een aantal voordelen:
 * geeft inzicht in de werking van de applicatie
 * voorkomt dat foutieve code van development naar productie gaat
 
+Unit tests testen de logica van een applicatie. Naast Unit tests zijn er ook integratie tests en end-to-end (E2E) tests om andere delen van de applicatie te testen.
+
 ## Wat is Test Driven Development (TDD)
 Test Driven Development of TDD wil zeggen dat de programmeurs eerst Unit Tests schrijven voor dat de applicatie code wordt geschreven.
 Dit brengt een aantal voordelen met zich mee:
@@ -30,7 +32,14 @@ Dit brengt een aantal voordelen met zich mee:
 * door eerst tests te schrijven moet er worden nagedacht over hoe de code wordt aangeroepen, dit verbetert het ontwerp van de applicatie
 
 ## Hoe schrijven we Unit Tests in MS Visual Studio
+Om Unit tests te schrijven hebben we een framework nodig. Dit framework geeft ons een **Library** die ons de nodige code geeft om onze tests te schrijven
+en een **Test Runner** die onze tests uitvoert en ons feedback geeft.
 
+Er zijn een aantal verschillende populaire frameworks:
+* NUnit
+* MSTest (built in in MS Visual Studio)
+* XUnit
+* ReSharper (test runner)
 
 ## Wat is dependency injection en waarom is dit nuttig?
 
