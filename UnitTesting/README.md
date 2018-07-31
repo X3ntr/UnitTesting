@@ -48,7 +48,8 @@ Dit kan gebeuren met behulp van een constructor (constructor injection), een set
 Voorbeeld:  
 In dit voorbeeld gaan we uit van een **object** met de volgende constructor
 
-``` public MijnKlasse() {
+```
+public MijnKlasse() {
 mijnObject = Factory.getObject();
 }
 ```
@@ -57,7 +58,8 @@ In dit geval heeft `mijnKlasse` een **dependency** namelijk `mijnObject`. In het
 we een *Mock Object* maken voor `mijnObject` en de `Factory.getObject()` aanroep opvangen. In dit geval is het gemakkelijker om Dependency Injection toe
 te passen met behulp van de constructor.
   
-``` public mijnKlasse(MijnObject mijnObject) {
+```
+public mijnKlasse(MijnObject mijnObject) {
 this.mijnObject = mijnObject();
 }
 ```
