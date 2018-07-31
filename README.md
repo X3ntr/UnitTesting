@@ -17,5 +17,6 @@ ISB204A-02
 
 ## Useful sources
 [Unit Testing ASP .NET MVC Applications](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/unit-testing/creating-unit-tests-for-asp-net-mvc-applications-cs)
+[Unit Testing Interfaces with MSTest](https://www.codeproject.com/Tips/609259/Unit-Testing-Interfaces-in-NET)
 
 ## DEADLINE 12 AUGUSTUS 23u59
