@@ -92,10 +92,10 @@ namespace BL.UnitTests
             TicketResponse tr = new TicketResponse { Ticket = t, IsClientResponse = false, Date = DateTime.Now };
 
             //reflection
-            MethodInfo methodInfo = typeof(TicketManager).GetMethod("Validate", BindingFlags.NonPublic, new Type[] { typeof(TicketResponse) });
+            MethodInfo methodInfo = typeof(TicketManager).GetMethod("Validate", new Type[] { typeof(TicketResponse) });
             object[] parameters = {tr};
             //Act
-            methodInfo.Invoke(ticketManager, parameters);
+            methodInfo.Invoke(ticketManager, parameters); //throws NullReferenceException
 
             //Assert
             //assertion happens using attribute added to method
