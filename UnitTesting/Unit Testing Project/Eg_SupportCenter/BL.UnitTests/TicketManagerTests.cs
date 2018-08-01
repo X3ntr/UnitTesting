@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SC.BL;
 using SC.BL.Domain;
 using SC.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace BL.UnitTests
 {
@@ -40,10 +41,40 @@ namespace BL.UnitTests
             var result = ticketManager.AddTicketResponse(ticketNumber, response, isClientResponse);
 
             //Assert
-            Assert.IsTrue(result.Text.Equals(response));
-            Assert.IsTrue(result.Ticket.TicketNumber.Equals(ticketNumber));
-            Assert.IsTrue(result.IsClientResponse.Equals(isClientResponse));
+            Assert.AreEqual(result.Text, response);
+            Assert.AreEqual(result.Ticket.TicketNumber, ticketNumber);
+            Assert.AreEqual(result.IsClientResponse, isClientResponse);
             Assert.IsInstanceOfType(result, typeof(TicketResponse));
+        }
+
+        [TestMethod]
+        public void AddTicket_TicketIsValid_ReturnsTicket()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+
+            //Act
+            var result = ticketManager.AddTicket(1, "I can't run my unit test, is it broken?");
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(Ticket));
+            Assert.AreEqual(result.AccountId, 1);
+            Assert.AreEqual(result.State, TicketState.Open);
+            Assert.AreEqual(result.Text, "I can't run my unit test, is it broken?");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValidationException), "Ticket not valid!")]
+        public void AddTicket_TicketIsinvalid_ReturnsValidationException()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+
+            //Act
+            var result = ticketManager.AddTicket(1, "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+
+            //Assert
+            //assertion happens using attribute added to method
         }
     }
 }
