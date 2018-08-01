@@ -4,6 +4,8 @@ using SC.BL;
 using SC.BL.Domain;
 using SC.DAL;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace BL.UnitTests
 {
@@ -75,6 +77,43 @@ namespace BL.UnitTests
 
             //Assert
             //assertion happens using attribute added to method
+            //implicite private validation method testing
+            //avoiding reflection
+        }
+
+        //testing private validation method using reflection
+        [TestMethod]
+        [ExpectedException(typeof(TargetInvocationException))]
+        public void Validate_TicketResponseIsInvalid_ReturnsValidationException()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+            Ticket t = new Ticket { AccountId = 1, Text = "How do I test a private method in C#?", TicketNumber = 5 };
+            TicketResponse tr = new TicketResponse { Ticket = t, IsClientResponse = false, Date = DateTime.Now };
+
+            //reflection
+            MethodInfo methodInfo = typeof(TicketManager).GetMethod("Validate", BindingFlags.NonPublic, new Type[] { typeof(TicketResponse) });
+            object[] parameters = {tr};
+            //Act
+            methodInfo.Invoke(ticketManager, parameters);
+
+            //Assert
+            //assertion happens using attribute added to method
+        }
+
+        //testing private method using --PrivateObject--
+        [TestMethod]
+        public void Validate_TicketIsInvalid_ReturnsValidationException()
+        {
+            //Arrange
+            PrivateObject ticketManager = new PrivateObject(new TicketManager(ticketRepository));
+            Ticket t = new Ticket { AccountId = 1, Text = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" };
+
+            //Act
+            //act happens using delegation when asserting
+
+            //Assert => Assert.ThrowsException does not allow derived exceptions.
+            Assert.ThrowsException<TargetInvocationException>(() => ticketManager.Invoke("Validate", t));
         }
     }
 }
