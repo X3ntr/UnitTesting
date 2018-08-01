@@ -16,7 +16,7 @@ namespace SC.DAL.EF
     {
       ctx = new SupportCenterDbContext();
       
-      ctx.Database.Initialize(false);
+      ctx.Database.Initialize(false); 
     }
 
     public IEnumerable<Ticket> ReadTickets()

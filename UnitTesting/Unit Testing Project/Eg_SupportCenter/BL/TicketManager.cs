@@ -20,6 +20,12 @@ namespace SC.BL
       repo = new SC.DAL.EF.TicketRepository();
     }
 
+    //Overloading contructor for unit testing purposes => injecting repository via constructor to mitigate database connection
+    public TicketManager(TicketRepositoryHC ticketRepositoryHC)
+    {
+      repo = ticketRepositoryHC;
+    }
+
     public IEnumerable<Ticket> GetTickets()
     {
       return repo.ReadTickets();
