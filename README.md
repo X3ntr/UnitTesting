@@ -15,8 +15,9 @@ ISB204A-02
 * Pas Unit Testing toe op SupportCenter. Werk testen uit voor klassen in verschillende lagen (n-tier) van de applicatie.
 * Pas ook praktisch Dependency Injection en Reflection toe en toon hoe deze technologiën met mekaar gelinkt zijn.
 
-## Useful sources
+## Useful sources and information
 * [Unit Testing ASP .NET MVC Applications](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/unit-testing/creating-unit-tests-for-asp-net-mvc-applications-cs)
 * [Unit Testing Interfaces with MSTest](https://www.codeproject.com/Tips/609259/Unit-Testing-Interfaces-in-NET)
+* start-service -Name MSSQL$SQLSERVER2016
 
 ## DEADLINE 12 AUGUSTUS 23u59
