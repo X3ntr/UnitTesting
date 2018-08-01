@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SC.BL;
+using SC.BL.Domain;
 
 namespace BL.UnitTests
 {
@@ -7,8 +9,37 @@ namespace BL.UnitTests
     public class TicketManagerTests
     {
         [TestMethod]
-        public void TestMethod1()
+        [ExpectedException(typeof(ArgumentException),
+        "Ticketnumber '0' not found!")]
+        public void AddTicketResponse_TicketIsInvalid_ReturnsArgumentException()
         {
+            //Arrange
+            TicketManager ticketManager = new TicketManager();
+
+            //Act
+            var result = ticketManager.AddTicketResponse(0, "This ticket is not valid", false);
+
+            //Assert
+            //assertion happens using attribute added to method
+        }
+
+        [TestMethod]
+        public void AddTicketResponse_TicketIsValid_ReturnsNewTicketResponse()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager();
+            string response = "This ticket is being processed";
+            int ticketNumber = 1;
+            bool isClientResponse = false;
+
+            //Act
+            var result = ticketManager.AddTicketResponse(ticketNumber, response, isClientResponse);
+
+            //Assert
+            Assert.IsTrue(result.Text.Equals(response));
+            Assert.IsTrue(result.Ticket.Equals(ticketNumber));
+            Assert.IsTrue(result.IsClientResponse.Equals(isClientResponse));
+            Assert.IsInstanceOfType(result, typeof(TicketResponse));
         }
     }
 }
