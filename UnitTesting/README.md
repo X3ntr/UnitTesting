@@ -101,7 +101,9 @@ this.mijnObject = mijnObject();
 }
 ```
 
-Nu kunnen we een *Mock Object* maken voor `mijnObject` en dit via de constructor doorgeven.
+Nu kunnen we een *Mock Object* maken voor `mijnObject` en dit via de constructor doorgeven. Dependency injection is onderandere nuttig om database queries te omzeilen
+tijdens het testen. Dit kunnen we doen door een *hardcoded* database te maken en deze te injecteren via een *overloaded* constructor.
+* zie TicketManager voor toepassing
 
 ## Wat is reflection?
 Reflectie is de mogelijkheid van een applicatie om *at runtime* zijn eigen gedrag en structuur te bekijken en eventueel aan te passen.
