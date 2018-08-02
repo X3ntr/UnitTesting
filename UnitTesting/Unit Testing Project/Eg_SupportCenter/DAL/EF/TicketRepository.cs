@@ -19,6 +19,11 @@ namespace SC.DAL.EF
       ctx.Database.Initialize(false); 
     }
    
+    //overloaded constructor to allow DbContext to be injected for testing purposes
+    public TicketRepository(SupportCenterDbContext ctx)
+    {
+        this.ctx = ctx;
+    }
 
     public IEnumerable<Ticket> ReadTickets()
     {
