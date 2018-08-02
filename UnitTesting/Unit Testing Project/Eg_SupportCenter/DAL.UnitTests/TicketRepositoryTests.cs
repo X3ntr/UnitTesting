@@ -19,6 +19,21 @@ namespace DAL.UnitTests
         public void ReadTickets_ReadAllTickets_ReturnsIEnumerableTicketsContainingAllTickets()
         {
             //Arrange
+            var tickets = new List<Ticket>
+            {
+                //add data
+            }.AsQueryable();
+
+            var hardwareTickets = new List<HardwareTicket>
+            {
+                //add data
+            }.AsQueryable();
+
+            var ticketResponses = new List<TicketResponse>
+            {
+                //add data
+            }.AsQueryable();
+
             var mockTickets = new Mock<DbSet<Ticket>>();
             var mockHarwareTickets = new Mock<DbSet<HardwareTicket>>();
             var mockTicketResponses = new Mock<DbSet<TicketResponse>>();
@@ -28,6 +43,21 @@ namespace DAL.UnitTests
             mockContext.Setup(m => m.Tickets).Returns(mockTickets.Object);
             mockContext.Setup(m => m.TicketResponses).Returns(mockTicketResponses.Object);
             mockContext.Setup(m => m.HardwareTickets).Returns(mockHarwareTickets.Object);
+
+            mockContext.As<IQueryable<Ticket>>().Setup(m => m.Provider).Returns(tickets.Provider);
+            mockContext.As<IQueryable<Ticket>>().Setup(m => m.Expression).Returns(tickets.Expression);
+            mockContext.As<IQueryable<Ticket>>().Setup(m => m.ElementType).Returns(tickets.ElementType);
+            mockContext.As<IQueryable<Ticket>>().Setup(m => m.GetEnumerator()).Returns(tickets.GetEnumerator());
+
+            mockContext.As<IQueryable<HardwareTicket>>().Setup(m => m.Provider).Returns(hardwareTickets.Provider);
+            mockContext.As<IQueryable<HardwareTicket>>().Setup(m => m.Expression).Returns(hardwareTickets.Expression);
+            mockContext.As<IQueryable<HardwareTicket>>().Setup(m => m.ElementType).Returns(hardwareTickets.ElementType);
+            mockContext.As<IQueryable<HardwareTicket>>().Setup(m => m.GetEnumerator()).Returns(hardwareTickets.GetEnumerator());
+
+            mockContext.As<IQueryable<TicketResponse>>().Setup(m => m.Provider).Returns(ticketResponses.Provider);
+            mockContext.As<IQueryable<TicketResponse>>().Setup(m => m.Expression).Returns(ticketResponses.Expression);
+            mockContext.As<IQueryable<TicketResponse>>().Setup(m => m.ElementType).Returns(ticketResponses.ElementType);
+            mockContext.As<IQueryable<TicketResponse>>().Setup(m => m.GetEnumerator()).Returns(ticketResponses.GetEnumerator());
 
             TicketRepository ticketRepository = new TicketRepository(mockContext.Object);
 
