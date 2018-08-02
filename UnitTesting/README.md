@@ -47,6 +47,8 @@ kunnen minimaliseren en verschillende lagen van onze applicatie onafhankelijk va
 * stubs -> geven altijd dezelfde antwoorden op aanroepen. Effectief maar veel hardcoded code vereist.
 * mocks -> beste van twee werelden. Vereist *mocking* framework.
   
+Voorbeeld injecting mocking object via constructor -> TicketRepositoryTests
+  
 De meest gebruikte *mocking* frameworks zijn:
 * NSubstitute
 * Moq
