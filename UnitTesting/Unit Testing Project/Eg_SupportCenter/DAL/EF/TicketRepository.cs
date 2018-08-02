@@ -18,13 +18,7 @@ namespace SC.DAL.EF
       
       ctx.Database.Initialize(false); 
     }
-    
-    //overload constructor for testing purposes using DI.
-    //SupportCenterDbContext set to public for testing purposes.
-    public TicketRepository(SupportCenterDbContext ctx)
-    {
-            this.ctx = ctx;
-    }
+   
 
     public IEnumerable<Ticket> ReadTickets()
     {
