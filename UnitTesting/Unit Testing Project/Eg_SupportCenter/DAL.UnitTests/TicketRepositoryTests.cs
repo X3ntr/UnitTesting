@@ -22,6 +22,10 @@ namespace DAL.UnitTests
             var tickets = new List<Ticket>
             {
                 //add data
+                new Ticket { AccountId = 1, State = TicketState.Open, TicketNumber = 1, Text = "Test ticket"},
+                new Ticket { AccountId = 2, State = TicketState.Open, TicketNumber = 2, Text = "Test ticket"},
+                new Ticket { AccountId = 3, State = TicketState.Open, TicketNumber = 3, Text = "Test ticket"}
+
             }.AsQueryable();
 
             var hardwareTickets = new List<HardwareTicket>
