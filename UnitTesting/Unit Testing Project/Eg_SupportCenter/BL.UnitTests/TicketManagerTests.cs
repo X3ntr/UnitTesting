@@ -12,8 +12,8 @@ namespace BL.UnitTests
     [TestClass]
     public class TicketManagerTests
     {
-        //Create global hardcoded repository to mitigate database interaction
-        private static TicketRepositoryHC ticketRepository = new TicketRepositoryHC();
+        //Create global repository stub with hardcoded values to mitigate database interaction
+        private static ITicketRepository ticketRepository = new TicketRepositoryHC();
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),

@@ -41,6 +41,19 @@ Er zijn een aantal verschillende populaire frameworks:
 * XUnit
 * ReSharper (test runner)
 
+Om Unit testen makkelijker te maken kunnen we gebruik maken van *mocking* frameworks. Deze frameworks zijn gemaakt om objecten na te bootsen zodat we onze testcode
+kunnen minimaliseren en verschillende lagen van onze applicatie onafhankelijk van elkaar kunnen testen. Er zijn verschillende manieren om *dependencies* op te vangen.
+* fakes -> geven altijd dezelfde data terug. Gemakkelijk maar gelimiteerd
+* stubs -> geven altijd dezelfde antwoorden op aanroepen. Effectief maar veel hardcoded code vereist.
+* mocks -> beste van twee werelden. Vereist *mocking* framework.
+  
+De meest gebruikte *mocking* frameworks zijn:
+* NSubstitute
+* Moq
+* Rhino Mocks
+* FakeItEasy
+* NMock3
+
 Om onze tests te schrijven voegen we een nieuw project toe aan onze solution van het type ***Unit Test project*** en geven het een naam volgens de volgende conventie
 `[project name].UnitTests`
   

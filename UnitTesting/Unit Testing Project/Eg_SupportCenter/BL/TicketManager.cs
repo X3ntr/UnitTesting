@@ -21,9 +21,9 @@ namespace SC.BL
     }
 
     //Overloading contructor for unit testing purposes => injecting repository via constructor to mitigate database connection
-    public TicketManager(TicketRepositoryHC ticketRepositoryHC)
+    public TicketManager(ITicketRepository ticketRepository)
     {
-      repo = ticketRepositoryHC;
+      repo = ticketRepository;
     }
 
     public IEnumerable<Ticket> GetTickets()
