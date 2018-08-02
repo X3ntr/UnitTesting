@@ -15,7 +15,7 @@ namespace SC.BL.Domain
     public bool IsClientResponse { get; set; }
 
     [Required]
-    public Ticket Ticket { get; set; }
+    public virtual Ticket Ticket { get; set; } //set to virtual to allow mocking
 
     IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
     {

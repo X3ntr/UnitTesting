@@ -21,9 +21,10 @@ namespace SC.DAL.EF
       //Database.SetInitializer<SupportCenterDbContext>(new SupportCenterDbInitializer()); // moved to 'SupportCenterDbConfiguration'
     }
 
-    public DbSet<Ticket> Tickets { get; set; }
-    public DbSet<HardwareTicket> HardwareTickets { get; set; }
-    public DbSet<TicketResponse> TicketResponses { get; set; }
+    //set virtual to allow mocking
+    public virtual DbSet<Ticket> Tickets { get; set; }
+    public virtual DbSet<HardwareTicket> HardwareTickets { get; set; }
+    public virtual DbSet<TicketResponse> TicketResponses { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
