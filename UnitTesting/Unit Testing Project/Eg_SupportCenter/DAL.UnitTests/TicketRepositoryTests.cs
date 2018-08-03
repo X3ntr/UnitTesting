@@ -98,7 +98,8 @@ namespace DAL.UnitTests
             //Arrange
             var mockContext = new Mock<SupportCenterDbContext>();
             mockContext.Setup(t => t.Tickets).ReturnsDbSet(tickets);
-            mockContext.Setup(t => t.Tickets.Find(It.IsAny<int>())).Returns<int>(x => mockContext.Object.Tickets.Find(x));
+            //mockContext.Setup(t => t.Tickets.Find(It.IsAny<int>())).Returns<int>(x => mockContext.Object.Tickets.Find(x));
+            mockContext.Setup(t => t.Tickets.Find(It.IsAny<int>())).Returns(new Mock<Ticket>().Object);
 
             TicketRepository ticketRepository = new TicketRepository(mockContext.Object);
 
@@ -107,7 +108,7 @@ namespace DAL.UnitTests
 
             //Assert
             mockContext.Verify(x => x.Tickets.Find(It.IsAny<int>()), Times.Once());
-            //Assert.IsInstanceOfType(result, typeof(Mock<Ticket>));
+            Assert.IsInstanceOfType(result, typeof(Ticket));
         }
 
         [TestMethod]
@@ -129,5 +130,6 @@ namespace DAL.UnitTests
             mockContext.Verify(x => x.Tickets.Add(It.IsAny<Ticket>()), Times.Once());
             mockContext.Verify(x => x.SaveChanges(), Times.Once());
         }
+
     }
 }

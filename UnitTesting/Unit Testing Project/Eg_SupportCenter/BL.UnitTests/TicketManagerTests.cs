@@ -6,14 +6,30 @@ using SC.DAL;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Diagnostics;
+using Moq;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace BL.UnitTests
 {
     [TestClass]
     public class TicketManagerTests
     {
-        //Create global repository stub with hardcoded values to mitigate database interaction
-        private static ITicketRepository ticketRepository = new TicketRepositoryHC();
+        //Create global repository
+        private static ITicketRepository ticketRepository;
+        private static Mock<ITicketRepository> mockedRepository;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            //stub with hardcoded values to mitigate database interaction
+            ticketRepository = new TicketRepositoryHC();
+
+            //Mock using Moq
+            mockedRepository = new Mock<ITicketRepository>();
+            //ticketRepository = mockedRepository.Object;
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
@@ -39,6 +55,9 @@ namespace BL.UnitTests
             int ticketNumber = 1;
             bool isClientResponse = false;
 
+            //When mocking
+            //mockedRepository.Setup(x => x.ReadTicket(It.IsAny<int>())).Returns(new Ticket { TicketNumber = 1, AccountId = 1, Text = "I am a ticket", Responses = new List<TicketResponse>()});
+
             //Act
             var result = ticketManager.AddTicketResponse(ticketNumber, response, isClientResponse);
 
@@ -54,6 +73,9 @@ namespace BL.UnitTests
         {
             //Arrange
             TicketManager ticketManager = new TicketManager(ticketRepository);
+
+            //When mocking
+            //mockedRepository.Setup(x => x.CreateTicket(It.IsAny<Ticket>())).Returns<Ticket>(x => x);
 
             //Act
             var result = ticketManager.AddTicket(1, "I can't run my unit test, is it broken?");
