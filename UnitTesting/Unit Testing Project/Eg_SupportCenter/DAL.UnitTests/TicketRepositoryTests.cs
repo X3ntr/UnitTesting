@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using SC.DAL.EF;
 using Moq;
+using System.Linq.Expressions;
 
 namespace DAL.UnitTests
 {
@@ -15,14 +16,18 @@ namespace DAL.UnitTests
         //set SupportCenterDbContext DbSets to virtual to allow mocking
         //set Ticket, TicketResponse relations to virtual
 
-        //create global mocked context to use for testing
-        private static SupportCenterDbContext ctx = Mock();
+        //created extension methods => DbSetMocking.cs to mock DbSet more easily
 
-        //create Mock() method to mock DbContext and seed with dummy data
-        private static SupportCenterDbContext Mock()
+        //global data sets to use when mocking
+        private static IEnumerable<Ticket> tickets;
+        private static IEnumerable<HardwareTicket> hardwareTickets;
+        private static IEnumerable<TicketResponse> ticketResponses;
+
+        //test initializer to create dummy data for mocking
+        [TestInitialize]
+        public void Initialize()
         {
-            //create dummy data
-            #region
+            #region create dummy data
             Ticket t1 = new Ticket() { TicketNumber = 1, AccountId = 1, Text = "Ik kan mij niet aanmelden op de webmail", DateOpened = new DateTime(2012, 9, 9, 13, 5, 59), State = TicketState.Closed, Responses = new List<TicketResponse>() };
 
             TicketResponse t1r1 = new TicketResponse() { Id = 1, Ticket = t1, Text = "Account is geblokkeerd", Date = new DateTime(2012, 9, 9, 13, 24, 48), IsClientResponse = false };
@@ -42,82 +47,87 @@ namespace DAL.UnitTests
             HardwareTicket ht1 = new HardwareTicket() { TicketNumber = 3, AccountId = 2, Text = "Blue screen!", DateOpened = new DateTime(2012, 12, 14, 19, 15, 32), State = TicketState.Open, DeviceName = "PC-123456" };
             #endregion
 
-            //initialize fakes
-            #region
-            var tickets = new List<Ticket>
-            {
-                //add data
-                t1,
-                t2
-                
-            }.AsQueryable();
+            #region initialize fakes
+            tickets = new List<Ticket>
+                {
+                    //add data
+                    t1,
+                    t2
 
-            var hardwareTickets = new List<HardwareTicket>
-            {
-                //add data
-                ht1
+                }.AsQueryable();
 
-            }.AsQueryable();
+            hardwareTickets = new List<HardwareTicket>
+                {
+                    //add data
+                    ht1
 
-            var ticketResponses = new List<TicketResponse>
-            {
-                //add data
-                t1r1,
-                t1r2,
-                t1r3,
-                t2r1
+                }.AsQueryable();
 
-            }.AsQueryable();
+            ticketResponses = new List<TicketResponse>
+                {
+                    //add data
+                    t1r1,
+                    t1r2,
+                    t1r3,
+                    t2r1
+
+                }.AsQueryable();
             #endregion
-
-            //create mock DbSets
-            var mockTickets = new Mock<DbSet<Ticket>>();
-            var mockHarwareTickets = new Mock<DbSet<HardwareTicket>>();
-            var mockTicketResponses = new Mock<DbSet<TicketResponse>>();
-
-            //set properties
-            #region
-            mockTickets.As<IQueryable<Ticket>>().Setup(m => m.Provider).Returns(tickets.Provider);
-            mockTickets.As<IQueryable<Ticket>>().Setup(m => m.Expression).Returns(tickets.Expression);
-            mockTickets.As<IQueryable<Ticket>>().Setup(m => m.ElementType).Returns(tickets.ElementType);
-            mockTickets.As<IQueryable<Ticket>>().Setup(m => m.GetEnumerator()).Returns(() => tickets.GetEnumerator());
-
-            mockHarwareTickets.As<IQueryable<HardwareTicket>>().Setup(m => m.Provider).Returns(hardwareTickets.Provider);
-            mockHarwareTickets.As<IQueryable<HardwareTicket>>().Setup(m => m.Expression).Returns(hardwareTickets.Expression);
-            mockHarwareTickets.As<IQueryable<HardwareTicket>>().Setup(m => m.ElementType).Returns(hardwareTickets.ElementType);
-            mockHarwareTickets.As<IQueryable<HardwareTicket>>().Setup(m => m.GetEnumerator()).Returns(() => hardwareTickets.GetEnumerator());
-
-            mockTicketResponses.As<IQueryable<TicketResponse>>().Setup(m => m.Provider).Returns(ticketResponses.Provider);
-            mockTicketResponses.As<IQueryable<TicketResponse>>().Setup(m => m.Expression).Returns(ticketResponses.Expression);
-            mockTicketResponses.As<IQueryable<TicketResponse>>().Setup(m => m.ElementType).Returns(ticketResponses.ElementType);
-            mockTicketResponses.As<IQueryable<TicketResponse>>().Setup(m => m.GetEnumerator()).Returns(() => ticketResponses.GetEnumerator());
-            #endregion
-
-            //create mock context
-            var mockContext = new Mock<SupportCenterDbContext>();
-
-            //set properties
-            mockContext.Setup(m => m.Tickets).Returns(mockTickets.Object);
-            mockContext.Setup(m => m.TicketResponses).Returns(mockTicketResponses.Object);
-            mockContext.Setup(m => m.HardwareTickets).Returns(mockHarwareTickets.Object);
-
-            //return mocked DbContext
-            return mockContext.Object;
         }
-
 
         [TestMethod]
         public void ReadTickets_ReadAllTickets_ReturnsIEnumerableTicketsContainingAllTickets()
         {
             //Arrange
-            TicketRepository ticketRepository = new TicketRepository(ctx);
+            var mockContext = new Mock<SupportCenterDbContext>();
+            mockContext.Setup(t => t.Tickets).ReturnsDbSet(tickets);
+
+            TicketRepository ticketRepository = new TicketRepository(mockContext.Object);
 
             //Act
             var result = ticketRepository.ReadTickets();
 
             //Assert
-            Assert.AreEqual(result.Count(), ctx.Tickets.Count());
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<Ticket>));
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.Count(), mockContext.Object.Tickets.Count());
+        }
+
+        [TestMethod]
+        public void ReadTicket_ReadTicketOne_ReturnsTicketOne()
+        {
+            //Arrange
+            var mockContext = new Mock<SupportCenterDbContext>();
+            mockContext.Setup(t => t.Tickets).ReturnsDbSet(tickets);
+            mockContext.Setup(t => t.Tickets.Find(It.IsAny<int>())).Returns<int>(x => mockContext.Object.Tickets.Find(x));
+
+            TicketRepository ticketRepository = new TicketRepository(mockContext.Object);
+
+            //Act
+            var result = ticketRepository.ReadTicket(1);
+
+            //Assert
+            mockContext.Verify(x => x.Tickets.Find(It.IsAny<int>()), Times.Once());
+            //Assert.IsInstanceOfType(result, typeof(Mock<Ticket>));
+        }
+
+        [TestMethod]
+        public void CreateTicket_CreateNewTicket_ReturnsTicketAndSavesToContext()
+        {
+            //Arrange
+            var mockContext = new Mock<SupportCenterDbContext>();
+            mockContext.Setup(x => x.Tickets).ReturnsDbSet(tickets);
+            mockContext.Setup(x => x.Tickets.Add(It.IsAny<Ticket>())).Returns<Ticket>(x => x);
+
+            TicketRepository ticketRepository = new TicketRepository(mockContext.Object);
+            Ticket t = new Ticket { AccountId = 1, DateOpened = DateTime.Now, State = TicketState.Open, Text = "I am a new ticket", Responses = new List<TicketResponse>() };
+
+            //Act
+            var result = ticketRepository.CreateTicket(t);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(Ticket));
+            mockContext.Verify(x => x.Tickets.Add(It.IsAny<Ticket>()), Times.Once());
+            mockContext.Verify(x => x.SaveChanges(), Times.Once());
         }
     }
 }
