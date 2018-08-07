@@ -32,7 +32,7 @@ namespace UI_MVC.UnitTests
             var result = controller.Details(1) as ViewResult;
 
             //Assert
-            Ticket t = (Ticket) result.ViewData.Model;
+            Ticket t = (Ticket)result.ViewData.Model;
 
             Assert.AreEqual("Details", result.ViewName);
             Assert.AreEqual(1, t.TicketNumber);
