@@ -6,6 +6,7 @@ using SC.BL.Domain;
 using SC.BL;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace UI_MVC.UnitTests
 {
@@ -13,21 +14,29 @@ namespace UI_MVC.UnitTests
     public class TicketControllerTests
     {
         //global data sets to use when mocking
-        //private static ITicketManager mgr = new TicketManager();
+        private static ITicketManager mgr = new TicketManager();
 
+        // GET: Tickets
         [TestMethod]
-        public void Details_ShowDetails_ReturnsDetailsView()
+        public void Index() // ActionResult instead of void?
         {
-            //problem with system.web.mvc / a dependency file not found error BUG
-            //Arrange
-            //Mock<Ticket> ticket = new Mock<Ticket>(); // Need a mock ticket
-            var controller = new TicketController(); // the Controller to test
+            IEnumerable<Ticket> tickets = mgr.GetTickets();
+            
+        }
 
-            //Act
-            var result = controller.Details(2) as ViewResult; 
+        // Get: Tickets/Details
+        [TestMethod]
+        public void Details_ShowTicketDetails_ReturnTicketDetails()
+        {
+            // Arrange
+            //Mock<Ticket> ticket = mgr.GetTicket(2);   
+            //var controller = new TicketController();
 
-            //Assert
-            Assert.AreEqual("Details", result.ViewName); // Returns view name
+            // Act
+            //var result = controller.Details(2) as ViewResult;
+
+            // Assert
+            //Assert.AreEqual(ticket, result.ViewName);
         }
     }
 }

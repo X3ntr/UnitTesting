@@ -20,5 +20,10 @@ namespace SC.BL.Domain
     public TicketState State { get; set; }
 
     public virtual ICollection<TicketResponse> Responses { get; set; } /* TOEGEVOEGD 'virtual' for lazy-loading, if enabled on context (default) */
-  }
+
+        public static implicit operator global::Moq.Mock<object>(Ticket v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
