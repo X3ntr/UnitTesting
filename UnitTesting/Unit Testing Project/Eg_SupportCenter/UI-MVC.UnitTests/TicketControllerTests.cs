@@ -6,28 +6,36 @@ using SC.BL.Domain;
 using SC.BL;
 using System.Linq;
 using System.Linq.Expressions;
+using SC.DAL;
 
 namespace UI_MVC.UnitTests
 {
     [TestClass]
     public class TicketControllerTests
     {
-        //global data sets to use when mocking
-        //private static ITicketManager mgr = new TicketManager();
+        //global controller
+        private TicketController controller;
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            controller = new TicketController(new TicketManager(new TicketRepositoryHC()));
+        }
+
+        //ctrl R, ctrl + T to debug single method
         [TestMethod]
         public void Details_ShowDetails_ReturnsDetailsView()
         {
-            //problem with system.web.mvc / a dependency file not found error BUG
             //Arrange
-            //Mock<Ticket> ticket = new Mock<Ticket>(); // Need a mock ticket
-            var controller = new TicketController(); // the Controller to test
 
             //Act
-            var result = controller.Details(2) as ViewResult; 
+            var result = controller.Details(1) as ViewResult;
 
             //Assert
-            Assert.AreEqual("Details", result.ViewName); // Returns view name
+            Ticket t = (Ticket) result.ViewData.Model;
+
+            Assert.AreEqual("Details", result.ViewName);
+            Assert.AreEqual(1, t.TicketNumber);
         }
     }
 }

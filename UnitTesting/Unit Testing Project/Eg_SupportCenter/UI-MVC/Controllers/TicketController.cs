@@ -11,7 +11,19 @@ namespace SC.UI.Web.MVC.Controllers
 {
     public class TicketController : Controller
     {
-        private ITicketManager mgr = new TicketManager();
+        private ITicketManager mgr;
+
+        //implemented contructor to allow overloading to testing
+        public TicketController()
+        {
+            mgr = new TicketManager();
+        }
+
+        //overloaded constructor to inject TicketManager
+        public TicketController(ITicketManager mgr)
+        {
+            this.mgr = mgr;
+        }
 
         // GET: Ticket
         public ActionResult Index()
@@ -31,7 +43,7 @@ namespace SC.UI.Web.MVC.Controllers
             // OF: via ViewBag
             //ViewBag.Responses = responses;
 
-            return View(ticket);
+            return View("Details", ticket); //explicitely specify view name to use in Unit Test
         }
 
         // GET: Ticket/Create
