@@ -29,7 +29,7 @@ namespace SC.UI.Web.MVC.Controllers
         public ActionResult Index()
         {
             IEnumerable<Ticket> tickets = mgr.GetTickets();
-            return View(tickets);
+            return View("Index", tickets);
         }
 
         // GET: Ticket/Details/5
@@ -49,7 +49,7 @@ namespace SC.UI.Web.MVC.Controllers
         // GET: Ticket/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Ticket/Create
@@ -75,14 +75,14 @@ namespace SC.UI.Web.MVC.Controllers
                 return RedirectToAction("Details", new { id = ticket.TicketNumber });
             }
 
-            return View();
+            return View("Create");
         }
 
         // GET: Ticket/Edit/5
         public ActionResult Edit(int id)
         {
             Ticket ticket = mgr.GetTicket(id);
-            return View(ticket);
+            return View("Edit", ticket);
         }
 
         // POST: Ticket/Edit/5
@@ -96,14 +96,14 @@ namespace SC.UI.Web.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View("Edit");
         }
 
         // GET: Ticket/Delete/5
         public ActionResult Delete(int id)
         {
             Ticket ticket = mgr.GetTicket(id);
-            return View(ticket);
+            return View("Delete", ticket);
         }
 
         // POST: Ticket/Delete/5
@@ -118,7 +118,7 @@ namespace SC.UI.Web.MVC.Controllers
             }
             catch
             {
-                return View();
+                return View("Delete");
             }
         }
     }
