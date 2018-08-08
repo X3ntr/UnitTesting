@@ -138,5 +138,38 @@ namespace BL.UnitTests
             //Assert => Assert.ThrowsException does not allow derived exceptions.
             Assert.ThrowsException<TargetInvocationException>(() => ticketManager.Invoke("Validate", t));
         }
+
+        [TestMethod]
+        public void ChangeTicket_TextIsChanged_TicketHasBeenUpdated()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+            Ticket t1 = ticketRepository.ReadTicket(1); // GET : ticket 
+
+            //Act
+            t1.Text = "Unit testing the changed ticket";
+            ticketManager.ChangeTicket(t1); // Update the repo with new values
+            var result = ticketManager.GetTicket(1); // Get the ticket back
+
+            //Assert
+            Assert.AreEqual(result.Text, "Unit testing the changed ticket"); // Check if ticket has changed
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValidationException), "Ticket not valid!")]
+        public void ChangeTicket_ChangedTextInvalid_ReturnsValidationException()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+            Ticket t1 = ticketRepository.ReadTicket(1);
+
+            //Act
+            t1.Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            ticketManager.ChangeTicket(t1); // ChangeTicket method contains a validator, which will set the ticket to invalid
+            var result = ticketManager.GetTicket(1);
+
+            //Assert
+            //assertion happens using attribute added to method
+        }
     }
 }
