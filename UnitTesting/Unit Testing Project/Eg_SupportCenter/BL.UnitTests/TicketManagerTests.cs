@@ -118,7 +118,7 @@ namespace BL.UnitTests
             null, new Type[] { typeof(TicketResponse) }, null);
             object[] parameters = {tr};
             //Act
-            methodInfo.Invoke(ticketManager, parameters); //throws NullReferenceException
+            methodInfo.Invoke(ticketManager, parameters);
 
             //Assert
             //assertion happens using attribute added to method
