@@ -171,5 +171,36 @@ namespace BL.UnitTests
             //Assert
             //assertion happens using attribute added to method
         }
+
+        [TestMethod]
+        public void RemoveTicket_RemoveTheTicket_TicketRemoved()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+            //Ticket t = ticketRepository(1);
+
+            //Act
+            ticketManager.AddTicket(1, "Unit test");
+            //ticketManager.RemoveTicket(t.TicketNumber);
+            ticketManager.RemoveTicket(1);
+            var result = ticketManager.GetTicket(1); // should throw an exception... but it does not (WIP)
+            //Assert
+            
+        }
+
+        [TestMethod]
+        public void ChangeTicketStateToClosed_ChangeOpenStateToClosed_StateHasChanged()
+        {
+            //Arrange
+            TicketManager ticketManager = new TicketManager(ticketRepository);
+
+            //Act
+            ticketManager.AddTicket(1, "Unit test");
+            ticketManager.ChangeTicketStateToClosed(1);
+            var result = ticketManager.GetTicket(1);
+
+            //Assert
+            Assert.AreEqual(result.State, TicketState.Closed);
+        }
     }
 }
