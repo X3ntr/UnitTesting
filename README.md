@@ -26,4 +26,10 @@ ISB204A-02
 * [A simple interface for fluently mocking a DbSet](https://codethug.com/2015/03/20/mocking-dbset/)
 * [Invoking overloaded methods using reflection](https://www.blackwasp.co.uk/ReflectionInvokeOverload.aspx)
 * [Use Assert to verify exception thrown](https://stackoverflow.com/questions/933613/how-do-i-use-assert-to-verify-that-an-exception-has-been-thrown)
+* [Help with starting unit testing .NET MVC controllers]
+https://stackoverflow.com/questions/8818207/how-should-one-unit-test-a-net-mvc-controller
+* [Dependency Injection explanation]
+https://stackoverflow.com/questions/130794/what-is-dependency-injection
+* [What makes a good unit test?]
+https://stackoverflow.com/questions/61400/what-makes-a-good-unit-test
 ## DEADLINE 12 AUGUSTUS 23u59
