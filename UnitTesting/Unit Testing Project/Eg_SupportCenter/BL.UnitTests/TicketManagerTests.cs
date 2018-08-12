@@ -130,7 +130,8 @@ namespace BL.UnitTests
         {
             //Arrange
             PrivateObject ticketManager = new PrivateObject(new TicketManager(ticketRepository));
-            Ticket t = new Ticket { AccountId = 1, Text = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" };
+            Ticket t = new Ticket { AccountId = 1, Text = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" +
+                "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" };
 
             //Act
             //act happens using delegation when asserting
