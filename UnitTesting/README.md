@@ -22,7 +22,7 @@ Unit testing heeft een aantal voordelen:
 * geeft inzicht in de werking van de applicatie
 * voorkomt dat foutieve code van development naar productie gaat
 
-Unit tests testen de logica van een applicatie. Naast Unit tests zijn er ook integratie tests en end-to-end (E2E) tests om andere delen van de applicatie te testen.
+Unit tests testen de logica van een applicatie. Naast Unit tests zijn er ook integratietests en end-to-end (E2E) tests om andere delen van de applicatie te testen.
 
 ## Wat is Test Driven Development (TDD)
 Test Driven Development of TDD wil zeggen dat de programmeurs eerst Unit Tests schrijven voor dat de applicatie code wordt geschreven.
