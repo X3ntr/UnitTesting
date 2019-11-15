@@ -1,8 +1,6 @@
 # Unit testing, dependency injection and reflection
 ## Unit tests in MS Visual Studio
-
-Sander Forrer  
-Christophe Dumont  
+  
 ISB204A-02
 
 * Wat is Unit Testing? Waarom is dit nuttig (of niet)?
